@@ -5,10 +5,10 @@ import 'package:world_time_nn/pages/location.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: '/home',
+    initialRoute: '/',
     routes: {
+      '/': (context) => Loading(),
       '/home': (context) => Home(),
-      '/loading': (context) => Loading(),
       '/location': (context) => Location(),
     },
   ));

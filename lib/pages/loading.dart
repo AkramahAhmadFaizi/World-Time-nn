@@ -10,15 +10,14 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
 
-  WorldTime instance= WorldTime('Europe/Berlin');
-  String time = 'loading Screen...';
+
 
   void SetupWorldTime() async {
+    WorldTime instance= WorldTime('Europe/Berlin');
     await instance.getTime();
-    setState(() {
-      time = instance.time.toString();
-    });
+    Navigator.pushReplacementNamed(context, '/home', arguments: instance.time);
   }
+  
   @override
   void initState() {
     // TODO: implement initState
@@ -31,7 +30,7 @@ class _LoadingState extends State<Loading> {
     return Scaffold(
       body: ElevatedButton(
         onPressed: (){},
-        child: Text('$time'),
+        child: SafeArea(child: Text('Loading... ')),
       ),
     );
   }
