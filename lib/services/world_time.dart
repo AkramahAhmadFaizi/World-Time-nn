@@ -15,7 +15,8 @@ class WorldTime {
   Future<void> getTime() async{
     Response response = await get(Uri.parse('http://worldtimeapi.org/api/timezone/$url'));
     Map data = jsonDecode(response.body);
-    DateTime datetime = DateTime.parse(data['datetime']);
+    String str = data['datetime'];
+    DateTime datetime = DateTime.parse(str.substring(0, str.length - 6));
     isDayTime = datetime.hour > 7 && datetime.hour < 19 ? true : false;
     time = DateFormat.jm().format(datetime);
   }

@@ -11,14 +11,8 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
 
-  final spinkit = SpinKitRotatingCircle(
-    color: Colors.white,
-    size: 50.0,
-  );
-  Map data={};
-
-  void SetupWorldTime(url, location, flag) async {
-    WorldTime instance= WorldTime(url: url, location: location, flag: flag);
+  void SetupWorldTime() async {
+    WorldTime instance= WorldTime(url: 'Europe/Berlin', location: 'Athens', flag: 'greece.png');
     await instance.getTime();
     Navigator.pushReplacementNamed(
         context, '/home',
@@ -35,22 +29,17 @@ class _LoadingState extends State<Loading> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    SetupWorldTime('Europe/Berlin', 'Athens', 'greece.png');
+    SetupWorldTime();
   }
 
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context)!.settings.arguments as Map;
-    SetupWorldTime(data['url'], data['location'], data['flag']);
     return Scaffold(
-      body: ElevatedButton(
-        onPressed: (){},
-        child: Center(
-          child: SpinKitFadingCube(
-            color: Colors.white,
-            size: 50.0,
-          ),
-        )
+      body: Center(
+        child: SpinKitFadingCube(
+          color: Colors.blue,
+          size: 50.0,
+        ),
       ),
     );
   }

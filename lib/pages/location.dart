@@ -45,7 +45,16 @@ class _LocationState extends State<Location> {
           return Card(
             margin: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
             child: InkWell(
-              onTap: (){},
+              onTap: () async {
+                WorldTime instance = locations[index];
+                await instance.getTime();
+                Navigator.pop(context, {
+                  'time': instance.time,
+                  'flag': instance.flag,
+                  'isDayTime': instance.isDayTime,
+                  'location': instance.location,
+                });
+              },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(

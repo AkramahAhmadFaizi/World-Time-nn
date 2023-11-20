@@ -11,7 +11,7 @@ class _HomeState extends State<Home> {
   Map data = {};
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context)!.settings.arguments as Map;
+    data = data.isEmpty ? ModalRoute.of(context)!.settings.arguments as Map : data;
     return Scaffold(
       body:  Container(
         decoration: BoxDecoration(
@@ -26,8 +26,16 @@ class _HomeState extends State<Home> {
             children: [
               SizedBox(height: 120.0,),
               TextButton.icon(
-                onPressed: (){
-                  Navigator.pushNamed(context, '/location');
+                onPressed: () async {
+                  dynamic result = await Navigator.pushNamed(context, '/location');
+                  setState(() {
+                    data= {
+                      'time': result['time'],
+                      'location': result['location'],
+                      'flag': result['flag'],
+                      'isDayTime': result['isDayTime'],
+                    };
+                  });
                 },
                 icon: Icon(Icons.edit_location, color: Colors.white,),
                 label: Text('Edit Location', style: TextStyle(color: Colors.white),),
@@ -36,7 +44,7 @@ class _HomeState extends State<Home> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Berlin',
+                  Text('${data['location']}',
                     style: TextStyle(fontSize: 30.0, letterSpacing: 2.0, color: Colors.white),),
                 ],
               ),
