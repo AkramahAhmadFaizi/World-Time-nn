@@ -5,10 +5,12 @@ import 'package:intl/intl.dart';
 
 class WorldTime {
   late String time;
-  String url;
+  late String location;
+  late String flag;
+  late String url;
   late bool isDayTime;
 
-  WorldTime(this.url);
+  WorldTime({required this.url, required this.location, required this.flag});
 
   Future<void> getTime() async{
     Response response = await get(Uri.parse('http://worldtimeapi.org/api/timezone/$url'));

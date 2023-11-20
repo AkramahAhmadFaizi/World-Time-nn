@@ -13,14 +13,14 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     data = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
-      body:  SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/night.png'),
-              fit: BoxFit.cover,
-            )
-          ),
+      body:  Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: data['isDayTime'] ? AssetImage('assets/day.png') : AssetImage('assets/night.png'),
+            fit: BoxFit.cover,
+          )
+        ),
+        child: SafeArea(
           child: Column(
             //crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -29,20 +29,20 @@ class _HomeState extends State<Home> {
                 onPressed: (){
                   Navigator.pushNamed(context, '/location');
                 },
-                icon: Icon(Icons.edit_location),
-                label: Text('Edit Location'),
+                icon: Icon(Icons.edit_location, color: Colors.white,),
+                label: Text('Edit Location', style: TextStyle(color: Colors.white),),
               ),
               SizedBox(height: 10.0,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text('Berlin',
-                    style: TextStyle(fontSize: 30.0, letterSpacing: 2.0),),
+                    style: TextStyle(fontSize: 30.0, letterSpacing: 2.0, color: Colors.white),),
                 ],
               ),
               SizedBox(height: 20.0,),
               Text(
-                '${data['time']}', style: TextStyle(fontSize: 60.0,),
+                '${data['time']}', style: TextStyle(fontSize: 60.0, color: Colors.white),
               )
             ],
           ),

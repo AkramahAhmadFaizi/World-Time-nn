@@ -15,22 +15,33 @@ class _LoadingState extends State<Loading> {
     color: Colors.white,
     size: 50.0,
   );
+  Map data={};
 
-  void SetupWorldTime() async {
-    WorldTime instance= WorldTime('Europe/Berlin');
+  void SetupWorldTime(url, location, flag) async {
+    WorldTime instance= WorldTime(url: url, location: location, flag: flag);
     await instance.getTime();
-    Navigator.pushReplacementNamed(context, '/home', arguments: {'time': instance.time, 'isDaytime': instance.isDayTime});
+    Navigator.pushReplacementNamed(
+        context, '/home',
+        arguments: {
+          'time': instance.time,
+          'location': instance.location,
+          'flag': instance.flag,
+          'isDayTime': instance.isDayTime
+        }
+    );
   }
   
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    SetupWorldTime();
+    SetupWorldTime('Europe/Berlin', 'Athens', 'greece.png');
   }
 
   @override
   Widget build(BuildContext context) {
+    data = ModalRoute.of(context)!.settings.arguments as Map;
+    SetupWorldTime(data['url'], data['location'], data['flag']);
     return Scaffold(
       body: ElevatedButton(
         onPressed: (){},
